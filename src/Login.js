@@ -18,6 +18,33 @@ const Login = () => {
     console.log('Email:', email);
     console.log('Password:', password);
     // You can add your authentication logic here
+     // Create a request body with the email and password
+     const requestBody = {
+      email: email,
+      password: password,
+    };
+
+    // Make the API request
+    fetch('http://localhost:8000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        console.log(data);
+        // You can add further logic here based on the response
+        console.log('token = '+data.token);
+        
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the API request
+        console.error('Error:', error);
+      });
+
   };
 
   return (

@@ -37,7 +37,7 @@ const Register = () => {
         // Handle the response from the API
         console.log(data);
         // You can add further logic here based on the response
-
+        
       })
       .catch((error) => {
         // Handle any errors that occur during the API request

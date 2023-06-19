@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 const UserDataPage = () => {
+  const { token } = useContext(AuthContext);
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    // Fetch user data from API after login
-    fetch('http://localhost:8000/userData', {
+    fetch('http://localhost:8000/all-user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // Add authentication headers if required
-        // e.g., 'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response from the API
         setUserData(data);
       })
       .catch((error) => {
-        // Handle any errors that occur during the API request
         console.error('Error:', error);
       });
   }, []);
@@ -27,7 +25,7 @@ const UserDataPage = () => {
   return (
     <div className="container">
       <h2>User Data</h2>
-      <table>
+      <table className="user-table">
         <thead>
           <tr>
             <th>Email</th>

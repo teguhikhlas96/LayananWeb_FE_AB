@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import './LoginRegister.css';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setToken } = useContext(AuthContext); // Gunakan useContext untuk mengakses nilai dari context
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -42,6 +44,7 @@ const Login = () => {
         console.log('token = '+data.token);
         // Redirect to UserDataPage if login is successful
         if (data.token) {
+          setToken(data.token);
           navigate('/user-data');
         }
         
